@@ -1,7 +1,9 @@
 node_modules/
 .expo/
 dist/
+mobil-2
 npm-debug.*
+*.idea/mobil-2.iml
 *.jks
 *.p8
 *.p12

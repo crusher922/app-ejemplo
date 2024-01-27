@@ -2,16 +2,18 @@ import React from "react";
 import {View, Text, StyleSheet, Image, Linking,TouchableWithoutFeedback} from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 
-const twitter = <Icon name={'twitter'} size={30} color={'black'}/>
-const facebook = <Icon name={'facebook'} size={30} color={'black'}/>
-const instagram = <Icon name={'instagram'} size={30} color={'black'}/>
-const linkedin = <Icon name={'linkedin'} size={30} color={'black'}/>
-const tiktok = <Icon name={'sitemap'} size={30} color={'black'}/>
+const youtube = <Icon name={'youtube'} size={40} color={'black'}/>
+const android = <Icon name={'android'} size={40} color={'black'}/>
+const paypal = <Icon name={'paypal'} size={40} color={'black'}/>
+const apple = <Icon name={'apple'} size={40} color={'black'}/>
+const github = <Icon name={'github'} size={40} color={'black'}/>
+
+
 const ProfileCard = () => {
     const user = {
-        avatar: "https://wallpapercave.com/uwp/uwp3658047.png",
-        coverPhoto: "https://wallpapercave.com/wp/nsu3cSp.jpg",
-        name: "Pablo caiza"
+        avatar: "https://wallpapercave.com/uwp/uwp3598469.jpeg",
+        coverPhoto: "https://wallpapercave.com/w/wp2041101.jpg",
+        name: "Francisco Jaramillo"
     }
     return (
         <View style={styles.container}>
@@ -25,25 +27,25 @@ const ProfileCard = () => {
             <View style={styles.buttonContainer}>
 
                 <TouchableWithoutFeedback style={{color: 'blue'}} onPress={() => {
-                    Linking.openURL('https://facebook.com/')
+                    Linking.openURL('https://www.youtube.com/')
                 }}>
-                    {facebook}
+                    {youtube}
                 </TouchableWithoutFeedback>
                 <TouchableWithoutFeedback style={{color: 'blue'}} onPress={() => {
-                    Linking.openURL('https://twitter.com/')
+                    Linking.openURL('https://www.paypal.com/ec/home')
                 }}>
-                    {twitter}
+                    {paypal}
                 </TouchableWithoutFeedback>
                 <TouchableWithoutFeedback style={{color: 'blue'}} onPress={() => {
-                    Linking.openURL('https://instagram.com/')
+                    Linking.openURL('https://www.android.com/intl/es_es/')
                 }}>
-                    {instagram}
+                    {android}
                 </TouchableWithoutFeedback>
-                <TouchableWithoutFeedback onPress={()=>Linking.openURL('https://linkedin.com/')}>
-                    {linkedin}
+                <TouchableWithoutFeedback onPress={()=>Linking.openURL('https://www.apple.com/la/')}>
+                    {apple}
                 </TouchableWithoutFeedback>
-                <TouchableWithoutFeedback onPress={()=>Linking.openURL('https://tiktok.com/')}>
-                    {tiktok}
+                <TouchableWithoutFeedback onPress={()=>Linking.openURL('https://github.com/')}>
+                    {github}
                 </TouchableWithoutFeedback>
 
             </View>

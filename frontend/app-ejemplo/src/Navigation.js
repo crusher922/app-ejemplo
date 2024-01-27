@@ -1,7 +1,7 @@
 import React from "react";
 import {View, Text} from "react-native";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs"
-import Menu from "./componentes/home/Menu";
+import Menu from "./componentes/home/Menu.mjs";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import ListComponent from "./componentes/list/List";
 import User from './screen/User'
