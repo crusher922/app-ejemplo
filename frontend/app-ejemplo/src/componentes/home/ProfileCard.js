@@ -55,7 +55,7 @@ const ProfileCard = () => {
 
 const styles = StyleSheet.create({
     container: {
-        width: '50%',
+        width: '100%',
         alignItems: 'center' //flex y grid
     },
     coverPhoto: {

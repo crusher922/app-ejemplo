@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import {View, Text, FlatList, TouchableOpacity, StyleSheet,StatusBar,Modal,Alert} from "react-native";
 import Task from "./Task";
 import Profile from "./Profile";
-import axios from 'axios'
 
 
 const ListComponent = () => {
@@ -15,7 +14,7 @@ const ListComponent = () => {
 
     const fetchData = async () => {
         try {
-            const response = await axios.getUri('https://api.unsplash.com/photos/?client_id=tmXX2qlmRsZbsX7eXhvWsY1wfSpKeQj6fU9EQN0fkAw')
+            const response = await fetch('https://api.unsplash.com/photos/?client_id=tmXX2qlmRsZbsX7eXhvWsY1wfSpKeQj6fU9EQN0fkAw')
             const jsonData = await response.json()
             console.log(jsonData)
             setTaskItems(jsonData)
