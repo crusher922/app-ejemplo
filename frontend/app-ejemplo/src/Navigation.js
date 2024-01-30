@@ -22,25 +22,25 @@ const Navigation = () => {
             <Tab.Screen name={'list'} component={ListComponent} options={{
                 tabBarLabel: 'Listado',
                 tabBarIcon: ({color, size}) => (
-                    <MaterialCommunityIcons name={'clipboard-list'} color={color} size={size}/>
+                    <MaterialCommunityIcons name={'android'} color={color} size={size}/>
                 )
             }}/>
-            <Tab.Screen name={'nombre'} component={User} options={{
-                tabBarLabel: 'Nombre',
+            <Tab.Screen name={'angular'} component={User} options={{
+                tabBarLabel: 'Angular',
                 tabBarIcon: ({color, size}) => (
-                    <MaterialCommunityIcons name={'account'} color={color} size={size}/>
+                    <MaterialCommunityIcons name={'angular'} color={color} size={size}/>
                 )
             }}/>
-            <Tab.Screen name={'openIA'} component={Chat} options={{
-                tabBarLabel: 'openIA',
+            <Tab.Screen name={'VisualStudio'} component={Chat} options={{
+                tabBarLabel: 'Visual Studio',
                 tabBarIcon: ({color, size}) => (
-                    <MaterialCommunityIcons name={'brain'} color={color} size={size}/>
+                    <MaterialCommunityIcons name={'microsoft-visual-studio'} color={color} size={size}/>
                 )
             }}/>
             <Tab.Screen name={'pdf'} component={Pdf} options={{
-                tabBarLabel: 'pdf',
+                tabBarLabel: 'pdf-ninja',
                 tabBarIcon: ({color, size}) => (
-                    <MaterialCommunityIcons name={'file-pdf-box'} color={color} size={size}/>
+                    <MaterialCommunityIcons name={'ninja'} color={color} size={size}/>
                 )
             }}/>
         </Tab.Navigator>
