@@ -23,7 +23,9 @@ const Pdf = () => {
             if (response.ok) {
                 setQuestion('')
                 const responseJSON = await response.json()
-                setResult(responseJSON.text)
+                //setResult(responseJSON.text)
+                setResult(`${jsonData.result} : el # de tokens es: ${jsonData.token} `)
+
             }
 
 
