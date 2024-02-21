@@ -8,7 +8,7 @@ const Chat = () => {
 
     const getResultFromOpenApi = async () => {
         try {
-            const response = await fetch('http://localhost:9004/openapi', {
+            const response = await fetch('http://192.168.1.31:9004/openapi', {
                 method: 'POST',
                 headers: {
                     "Content-Type": 'application/json'
@@ -16,7 +16,7 @@ const Chat = () => {
                 body: JSON.stringify({prompt})
             })
             const jsonData = await response.json()
-            setResult(`${jsonData.result} : ${jsonData.token} `)
+            setResult(`${jsonData.result} : el # de tokens es:  ${jsonData.token} `)
         } catch (error) {
             console.log(error)
         }

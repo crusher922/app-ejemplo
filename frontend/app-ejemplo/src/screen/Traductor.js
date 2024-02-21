@@ -18,7 +18,7 @@ const Traductor = () => {
                 body: JSON.stringify({prompt, language: selectedLanguage})
             })
             const jsonData = await response.json()
-            setResult(`${jsonData.result} : ${jsonData.token} `)
+            setResult(`${jsonData.result} :el # de tokens es: ${jsonData.token} `)
         } catch (error) {
             console.log(error)
         }
