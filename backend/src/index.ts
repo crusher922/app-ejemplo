@@ -46,8 +46,8 @@ const generatePrompt = (numberToConvert: number) => {
 
 }
 //Funcion para traduccion
-const generatePrompttraducir = (stringToTranslate: string) => {
-    return ` Tu tienes un rol de traductor requiero que traduzcas al ingles este texto: "${stringToTranslate}"`
+const generatePrompttraducir = (stringToTranslate: string, selectedLanguaje: string) => {
+    return ` Tu tienes un rol de traductor requiero que traduzcas este texto: "${stringToTranslate}" a "${selectedLanguaje}"`
 
 }
 const generatePromptconvertir = (numberToTranslate: string) => {
@@ -109,10 +109,10 @@ app.post('/openapi', async (req, res) => {
     res.send({result: completion.data.choices[0].text.trim(), token: completion.data.usage.total_tokens})
 })
 app.post('/openapit', async (req, res) => {
-    const {prompt} = req.body
+    const {prompt, language} = req.body
     const completion = await openai.createCompletion({
         model: 'gpt-3.5-turbo-instruct',
-        prompt: generatePrompttraducir(prompt),
+        prompt: generatePrompttraducir(prompt, language),
         temperature: 0.1
     })
 

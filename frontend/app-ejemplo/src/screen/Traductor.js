@@ -1,10 +1,11 @@
 import React, {useState} from "react";
 import {TextInput, View, StyleSheet, Text, Button} from "react-native";
-
+import {Picker} from "react-native-web";
 
 const Traductor = () => {
     const [prompt, setPrompt] = useState('')
     const [result, setResult] = useState('')
+    const [selectedLanguage, setSelectedLanguage] = useState('')
 
     const getResultFromOpenApit = async () => {
 
@@ -14,7 +15,7 @@ const Traductor = () => {
                 headers: {
                     "Content-Type": 'application/json'
                 },
-                body: JSON.stringify({prompt})
+                body: JSON.stringify({prompt, language: selectedLanguage})
             })
             const jsonData = await response.json()
             setResult(`${jsonData.result} : ${jsonData.token} `)
@@ -23,13 +24,24 @@ const Traductor = () => {
         }
     }
 
-
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>
-                {'Ingrese el texto a traducir'}
-            </Text>
-            <TextInput style={styles.input} value={prompt} onChangeText={setPrompt}/>
+            <TextInput style={styles.input} value={prompt} onChangeText={setPrompt}
+                placeholder={'Ingrese el texto a traducir'}/>
+            <Picker
+                style={styles.picker}
+                selectedValue={selectedLanguage}
+                onValueChange={(itemValue) => setSelectedLanguage(itemValue)}>
+                <Picker.Item label="Español" value="es"/>
+                <Picker.Item label="English" value="en"/>
+                <Picker.Item label="Francés" value="fr"/>
+                <Picker.Item label="Deutsch" value="de"/>
+                <Picker.Item label="Italiano" value="it"/>
+                <Picker.Item label="Portugues" value="pt"/>
+                <Picker.Item label="Russo" value="ru"/>
+                <Picker.Item label="Polski" value="pl"/>
+                <Picker.Item label="Chinese" value="zh"/>
+            </Picker>
             <Button title={'Traducir'} onPress={getResultFromOpenApit}/>
             <Text style={styles.text}>
                 {result}
@@ -54,11 +66,15 @@ const styles = StyleSheet.create({
         fontSize: 14,
         fontWeight: 'bold'
     },
-    button: {
-        marginVertical: 10 // Agrega margen vertical a los botones
-    },
-    separator: {
-        height: 10 // Altura del separador
+
+    picker: {
+        height: 50,
+        width: 150,
+        backgroundColor: 'white',
+        borderWidth: 1,
+        borderRadius: 10,
+        padding: 10,
+        margin: 10
     }
 })
 
