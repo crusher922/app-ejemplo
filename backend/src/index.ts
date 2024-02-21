@@ -4,12 +4,16 @@ import * as dotenv from 'dotenv';
 import {v4 as uuidv4} from 'uuid';
 import express, {response} from "express"
 import {process_doc} from "./lang_script";
+import {OpenAIApi, Configuration} from 'openai'
+import * as path from "path";
+
 
 dotenv.config()
 const app = express()
 app.use(express.json())
 const PORT = 9004
 app.use(cors())
+
 const storage = multer.diskStorage({
     destination: (req, file, callback) => {
         callback(null, './uploads')
@@ -18,6 +22,7 @@ const storage = multer.diskStorage({
         callback(null, file.originalname)
     }
 })
+
 const upload = multer({
     storage,
     fileFilter(req, file, callback: multer.FileFilterCallback) {
@@ -29,16 +34,24 @@ const upload = multer({
     }
 })
 
-import {OpenAIApi, Configuration} from 'openai'
-import * as path from "path";
+const apiKey = process.env.OPENAI_API_KEY;
 
 const configuration = new Configuration({
-    apiKey: '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'
+    apiKey: apiKey
 })
-const openai = new OpenAIApi(configuration)
 
+const openai = new OpenAIApi(configuration)
 const generatePrompt = (numberToConvert: number) => {
-    return ` Tu tienes un rol de convertidor binario y requiero que conviertes este numero ${numberToConvert} a  binario`
+    return ` Tu tienes un rol de convertidor binario y requiero que conviertas este numero ${numberToConvert} a binario`
+
+}
+//Funcion para traduccion
+const generatePrompttraducir = (stringToTranslate: string) => {
+    return ` Tu tienes un rol de traductor requiero que traduzcas al ingles este texto: "${stringToTranslate}"`
+
+}
+const generatePromptconvertir = (numberToTranslate: string) => {
+    return ` Eres un traductor de numeros en texto a binario traduce este numero en texto: "${numberToTranslate}"`
 
 }
 
@@ -59,8 +72,6 @@ app.get("/ping", (req, res) => {
     res.setHeader("Content-Type", "application/json")
     res.send("pong")
 })
-
-
 app.post('/upload', upload.single('file'), async (req, res) => {
     if (!req.file || !req.body?.question) {
         return res.status(400).send()
@@ -76,23 +87,20 @@ app.get("/hola/:nombre/:apellido", (req, res) => {
     console.log("alguien ha ingresado su nombre")
     res.send({nombre, apellido})
 })
-
 app.get('/nombres', (req, res) => {
 
     res.setHeader('Content-Type', 'application/json')
     res.send(names)
 })
-
 app.post('/nombres', (req, res) => {
     const item = {...req.body, id: uuidv4()};
     names.push(item)
     res.send(item)
 })
-
 app.post('/openapi', async (req, res) => {
     const {prompt} = req.body
     const completion = await openai.createCompletion({
-        model: 'text-davinci-003',
+        model: 'gpt-3.5-turbo-instruct',
         prompt: generatePrompt(prompt),
         temperature: 0.1
     })
@@ -100,19 +108,45 @@ app.post('/openapi', async (req, res) => {
     // @ts-ignore
     res.send({result: completion.data.choices[0].text.trim(), token: completion.data.usage.total_tokens})
 })
+app.post('/openapit', async (req, res) => {
+    const {prompt} = req.body
+    const completion = await openai.createCompletion({
+        model: 'gpt-3.5-turbo-instruct',
+        prompt: generatePrompttraducir(prompt),
+        temperature: 0.1
+    })
 
+    // @ts-ignore
+    res.send({result: completion.data.choices[0].text.trim(), token: completion.data.usage.total_tokens})
+})
+app.post('/convertir', async (req, res) => {
+    const {prompt} = req.body
+    const completion = await openai.createCompletion({
+        model: 'gpt-3.5-turbo-instruct',
+        prompt: generatePromptconvertir(prompt),
+        temperature: 0.1
+    })
+
+    // @ts-ignore
+    res.send({result: completion.data.choices[0].text.trim(), token: completion.data.usage.total_tokens})
+})
+app.post('/upload', upload.single('file'), async (req, res) => {
+    if (!req.file || !req.body?.question) {
+        return res.status(400).send()
+    }
+    const response = await process_doc(req.file?.filename, req.body.question)
+    res.send(response)
+})
 app.delete('/nombres/:id', (req, res) => {
     names = names.filter(n => n.id !== req.params.id)
     res.status(204).end()
 })
-
 app.get('/nombres/:id', (req, res) => {
     const searchedName = names.find(n => n.id === req.params.id)
     if (!searchedName)
         res.status(400).end()
     res.send(searchedName)
 })
-
 app.put('/nombres/:id', (req, res) => {
     const index = names.findIndex(n => n.id === req.params.id)
     if (index === -1)
@@ -122,7 +156,6 @@ app.put('/nombres/:id', (req, res) => {
 })
 app.listen(PORT, () => {
     console.log(`running application ${PORT}`)
-
 })
 
 

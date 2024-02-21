@@ -7,6 +7,8 @@ import ListComponent from "./componentes/list/List";
 import User from './screen/User'
 import Chat from "./screen/Chat";
 import Pdf from "./screen/Pdf";
+import Traductor from "./screen/Traductor.js";
+import NumTbin from "./screen/NumTbin.js";
 
 const Tab = createBottomTabNavigator()
 
@@ -41,6 +43,18 @@ const Navigation = () => {
                 tabBarLabel: 'pdf-ninja',
                 tabBarIcon: ({color, size}) => (
                     <MaterialCommunityIcons name={'ninja'} color={color} size={size}/>
+                )
+            }}/>
+            <Tab.Screen name={'Traductor'} component={Traductor} options={{
+                tabBarLabel: 'Traductor',
+                tabBarIcon: ({color, size}) => (
+                    <MaterialCommunityIcons name={'alpha-b-box'} color={color} size={size}/>
+                )
+            }}/>
+            <Tab.Screen name={'Binario'} component={NumTbin} options={{
+                tabBarLabel: 'Binario',
+                tabBarIcon: ({color, size}) => (
+                    <MaterialCommunityIcons name={'format-list-numbered'} color={color} size={size}/>
                 )
             }}/>
         </Tab.Navigator>

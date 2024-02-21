@@ -2,13 +2,14 @@ import React, {useState} from "react";
 import {TextInput, View, StyleSheet, Text, Button} from "react-native";
 
 
-const Chat = () => {
+const Traductor = () => {
     const [prompt, setPrompt] = useState('')
     const [result, setResult] = useState('')
 
-    const getResultFromOpenApi = async () => {
+    const getResultFromOpenApit = async () => {
+
         try {
-            const response = await fetch('http://localhost:9004/openapi', {
+            const response = await fetch('http://localhost:9004/openapit', {
                 method: 'POST',
                 headers: {
                     "Content-Type": 'application/json'
@@ -22,13 +23,14 @@ const Chat = () => {
         }
     }
 
+
     return (
         <View style={styles.container}>
             <Text style={styles.text}>
-                {'Ingrese El numero que desea convertir a binario'}
+                {'Ingrese el texto a traducir'}
             </Text>
             <TextInput style={styles.input} value={prompt} onChangeText={setPrompt}/>
-            <Button title={'Enviar'} onPress={getResultFromOpenApi}/>
+            <Button title={'Traducir'} onPress={getResultFromOpenApit}/>
             <Text style={styles.text}>
                 {result}
             </Text>
@@ -52,6 +54,12 @@ const styles = StyleSheet.create({
         fontSize: 14,
         fontWeight: 'bold'
     },
+    button: {
+        marginVertical: 10 // Agrega margen vertical a los botones
+    },
+    separator: {
+        height: 10 // Altura del separador
+    }
 })
 
-export default Chat
+export default Traductor
